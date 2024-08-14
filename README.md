@@ -22,22 +22,23 @@ Windows has certain APIs available to update the cursor. Mainly, `LoadCursorFrom
 <http://www.jasinskionline.com/windowsapi/ref/s/setsystemcursor.html>
 Each value below is a DWORD value, which identifies a cursor.
 
-- 32512 = OCR_NORMAL
-- 32513 = OCR_IBEAM
-- 32514 = OCR_WAIT
-- 32515 = OCR_CROSS
-- 32516 = OCR_UP
-- 32642 = OCR_SIZENWSE
-- 32640 = OCR_SIZE (Win NT only LOL, couldn't find this in official docs)
-- 32641 = OCR_ICON (Win NT only LOL, couldn't find this in official docs)
-- 32643 = OCR_SIZENESW
-- 32644 = OCR_SIZEWE
-- 32645 = OCR_SIZENS
-- 32646 = OCR_SIZEALL
-- 32648 = OCR_NO
-- 32649 = OCR_HAND
-- 32650 = OCR_APPSTARTING
-- 32651 = IDC_HELP
+- 32512 = NORMAL
+- 32513 = IBEAM
+- 32514 = WAIT
+- 32515 = CROSS
+- 32516 = UP
+- 32631 = PEN
+- 32642 = SIZENWSE
+- 32643 = SIZENESW
+- 32644 = SIZEWE
+- 32645 = SIZENS
+- 32646 = SIZEALL
+- 32648 = NO
+- 32649 = HAND
+- 32650 = APPSTARTING
+- 32651 = HELP
+- 32671 = PIN
+- 32672 = PERSON
 
 ### Registry Keys
 

@@ -1,32 +1,55 @@
 ; orignal topic converted to v2: https://www.autohotkey.com/boards/viewtopic.php?t=81652
-cursor_file := ".\arrow_eoa.cur"
-F3::SetSystemCursor(cursor_file)
+F3::SetSystemCursor()
 F4::RestoreCursors()
 
-SetSystemCursor(cursor_file) {
+SetSystemCursor() {
  ; https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setsystemcursor
  ; https://learn.microsoft.com/en-us/windows/win32/menurc/about-cursors
  ; http://www.jasinskionline.com/windowsapi/ref/s/setsystemcursor.html
  ; Each value below is a DWORD value, which identifies a cursor.
- ; 32512 = OCR_NORMAL
- ; 32513 = OCR_IBEAM
- ; 32514 = OCR_WAIT
- ; 32515 = OCR_CROSS
- ; 32516 = OCR_UP
- ; 32642 = OCR_SIZENWSE
- ; 32640 = OCR_SIZE (Win NT only LOL, couldn't find this in official docs)
- ; 32641 = OCR_ICON (Win NT only LOL, couldn't find this in official docs)
- ; 32643 = OCR_SIZENESW
- ; 32644 = OCR_SIZEWE
- ; 32645 = OCR_SIZENS
- ; 32646 = OCR_SIZEALL
- ; 32648 = OCR_NO
- ; 32649 = OCR_HAND
- ; 32650 = OCR_APPSTARTING
- ; 32651 = IDC_HELP
+ ; 32512 = NORMAL
+ ; 32513 = IBEAM
+ ; 32514 = WAIT
+ ; 32515 = CROSS
+ ; 32516 = UP
+ ; 32631 = PEN
+ ; 32642 = SIZENWSE
+ ; 32643 = SIZENESW
+ ; 32644 = SIZEWE
+ ; 32645 = SIZENS
+ ; 32646 = SIZEALL
+ ; 32648 = NO
+ ; 32649 = HAND
+ ; 32650 = APPSTARTING
+ ; 32651 = HELP
+ ; 32671 = PIN
+ ; 32672 = PERSON
+ cursor_dict := {
+   32512: "arrow_eoa.cur",
+   32513: "ibeam_eoa.cur",
+   32514: "wait_eoa.cur",
+   32515: "cross_eoa.cur",
+   32516: "up_eoa.cur",
+   32631: "pen_eoa.cur",
+   32642: "nwse_eoa.cur",
+   32643: "nesw_eoa.cur",
+   32644: "ew_eoa.cur",
+   32645: "ns_eoa.cur",
+   32646: "move_eoa.cur",
+   32648: "unavail_eoa.cur",
+   32649: "link_eoa.cur",
+   32650: "busy_eoa.cur",
+   32651: "helpsel_eoa.cur",
+   32671: "pin_eoa.cur",
+   32672: "person_eoa.cur"
+ }
 
+ inrange_cursors := ".\inrange_cursors"
+ elevated_cursors := ".\elevated_cursors"
+ low_cursors := ".\low_cursors"
 
- Cursors := "32512,32513,32514,32515,32516,32640,32641,32642,32643,32644,32645,32646,32648,32649,32650,32651"
+ cursor_file := ".\arrow_eoa.cur"
+ Cursors := "32512,32513,32514,32515,32516,32642,32643,32644,32645,32646,32648,32649,32650,32651"
  Loop Parse, Cursors, ","
  {
   DllCall("SetSystemCursor", "Uint", DllCall("LoadCursorFromFile", "Str", cursor_file), "Int", A_Loopfield)
