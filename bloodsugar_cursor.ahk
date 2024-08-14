@@ -48,11 +48,8 @@ SetSystemCursor() {
  elevated_cursors := ".\elevated_cursors"
  low_cursors := ".\low_cursors"
 
- cursor_file := ".\arrow_eoa.cur"
- Cursors := "32512,32513,32514,32515,32516,32642,32643,32644,32645,32646,32648,32649,32650,32651"
- Loop Parse, Cursors, ","
- {
-  DllCall("SetSystemCursor", "Uint", DllCall("LoadCursorFromFile", "Str", cursor_file), "Int", A_Loopfield)
+ For key, value in cursor_dict {
+   DllCall("SetSystemCursor", "Uint", DllCall("LoadCursorFromFile", "Str", value), "Int", key)
  }
 }
 
