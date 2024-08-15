@@ -11,7 +11,9 @@ For right now, the colors are:
 - red = low
 
 Included are the cursor files that will be loaded based on this status.
-You can run this via AutoHotKey for right now.
+You can run this via AutoHotKey and PowerShell for right now, and is very Windows centric.
+
+Perhaps I could venture out and write something in Go that's cross platform.
 
 ## Technical Details
 
@@ -76,6 +78,18 @@ Green = 12582656 (0x00bfff00)
 Yellow = 64250      (0x0000fafa)
 
 Back at the Control Panel/Cursors entries, the file path for Arrow is this string:
-"C:\\Users\\ivanc\\AppData\\Local\\Microsoft\\Windows\\Cursors\\arrow_eoa.cur"
+"C:\\Users\\[YOUR_USERNAME]\\AppData\\Local\\Microsoft\\Windows\\Cursors\\arrow_eoa.cur"
 
 Going to that directory, we can find these cursor files. If we change the color in Settings now, we can see these files get updated.
+
+### PowerShell
+
+The PowerShell script is written in a way that is to be leveraged by Task Scheduler.
+
+The DLL is called in a little bit of an odd way...
+
+<https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/add-type?view=powershell-5.1#example-4-call-native-windows-apis>
+
+The above reference shows how you can leverage the `Add-Type` utility to add a Microsoft .NET class to a PowerShell session.
+
+Since .NET can make the DLL call, we have this nested logic of a DLL call within a .NET string defined within PowerShell. Yikes.
