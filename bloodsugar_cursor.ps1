@@ -5,9 +5,9 @@ $SetSystemCursor_Signature = @"
 [DllImport("user32.dll")]
 public static extern IntPtr LoadCursorFromFile(string lpFileName);
 
-public static void SetCursorFromFile(string cursorFile){
+public static void SetCursorFromFile(string cursorFile, int cursorId){
     IntPtr hCursor = LoadCursorFromFile(cursorFile);
-    SetSystemCursor(hCursor, 32512);
+    SetSystemCursor(hCursor, cursorId);
 }
 "@
 
@@ -25,9 +25,48 @@ public static void RestoreCursors(){
 
 $SystemParametersInfo = Add-Type -MemberDefinition $SystemParametersInfo_Signature -Name "Win32SystemParametersInfo" -Namespace Win32Functions -PassThru
 
+$cursor_dict = @{
+    32512 = "arrow_eoa.cur"
+    32513 = "ibeam_eoa.cur"
+    32514 = "wait_eoa.cur"
+    32515 = "cross_eoa.cur"
+    32516 = "up_eoa.cur"
+    32631 = "pen_eoa.cur"
+    32642 = "nwse_eoa.cur"
+    32643 = "nesw_eoa.cur"
+    32644 = "ew_eoa.cur"
+    32645 = "ns_eoa.cur"
+    32646 = "move_eoa.cur"
+    32648 = "unavail_eoa.cur"
+    32649 = "link_eoa.cur"
+    32650 = "busy_eoa.cur"
+    32651 = "helpsel_eoa.cur"
+    32671 = "pin_eoa.cur"
+    32672 = "person_eoa.cur"
+}
+
 $scriptPath = $MyInvocation.MyCommand.Path
 $absolutePath = Convert-Path -Path $scriptPath
 $directory = [System.IO.Path]::GetDirectoryName($absolutePath)
+
+$elevated_cursor = Join-Path -Path $directory -ChildPath "elevated_cursors"
+$inrange_cursors = Join-Path -Path $directory -ChildPath "inrange_cursors"
+$low_cursors = Join-Path -Path $directory -ChildPath "low_cursors"
+
+if (!(Test-Path -Path $elevated_cursor)) {
+    Write-Host "The path $elevated_cursor does not exist."
+    exit
+}
+
+if (!(Test-Path -Path $inrange_cursors)) {
+    Write-Host "The path $inrange_cursors does not exist."
+    exit
+}
+
+if (!(Test-Path -Path $low_cursors)) {
+    Write-Host "The path $low_cursors does not exist."
+    exit
+}
 
 $jsonUrl = "http://192.168.0.127:1337/api/v1/entries.json"
 $response = Invoke-RestMethod -Uri $jsonUrl -Method Get
