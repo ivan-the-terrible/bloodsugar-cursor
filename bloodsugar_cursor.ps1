@@ -94,9 +94,9 @@ $response = Invoke-RestMethod -Uri $jsonUrl -Method Get
 
 $sugar_value = $response[0].sgv
 
-if ($sugar_value -gt 200 -or $sugar_value -lt 100) {
+if ($sugar_value -gt 200 -or $sugar_value -lt 110) {
     SetElevatedCursors
-} elseif ($sugar_value -lt 80) {
+} elseif ($sugar_value -lt 90) {
     SetLowCursors
 } else {
     SetInRangeCursors
