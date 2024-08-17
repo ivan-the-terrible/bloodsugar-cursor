@@ -49,12 +49,12 @@ $scriptPath = $MyInvocation.MyCommand.Path
 $absolutePath = Convert-Path -Path $scriptPath
 $directory = [System.IO.Path]::GetDirectoryName($absolutePath)
 
-$elevated_cursor = Join-Path -Path $directory -ChildPath "elevated_cursors"
+$elevated_cursors = Join-Path -Path $directory -ChildPath "elevated_cursors"
 $inrange_cursors = Join-Path -Path $directory -ChildPath "inrange_cursors"
 $low_cursors = Join-Path -Path $directory -ChildPath "low_cursors"
 
-if (!(Test-Path -Path $elevated_cursor)) {
-    Write-Host "The path $elevated_cursor does not exist."
+if (!(Test-Path -Path $elevated_cursors)) {
+    Write-Host "The path $elevated_cursors does not exist."
     exit
 }
 
@@ -68,15 +68,36 @@ if (!(Test-Path -Path $low_cursors)) {
     exit
 }
 
+function SetElevatedCursors {
+    foreach ($cursorId in $cursor_dict.Keys) {
+        $cursorFile = Join-Path -Path $elevated_cursors -ChildPath $cursor_dict[$cursorId]
+        $SetSystemCursor::SetCursorFromFile($cursorFile, $cursorId)
+    }
+}
+
+function SetInRangeCursors {
+    foreach ($cursorId in $cursor_dict.Keys) {
+        $cursorFile = Join-Path -Path $inrange_cursors -ChildPath $cursor_dict[$cursorId]
+        $SetSystemCursor::SetCursorFromFile($cursorFile, $cursorId)
+    }
+}
+
+function SetLowCursors {
+    foreach ($cursorId in $cursor_dict.Keys) {
+        $cursorFile = Join-Path -Path $low_cursors -ChildPath $cursor_dict[$cursorId]
+        $SetSystemCursor::SetCursorFromFile($cursorFile, $cursorId)
+    }
+}
+
 $jsonUrl = "http://192.168.0.127:1337/api/v1/entries.json"
 $response = Invoke-RestMethod -Uri $jsonUrl -Method Get
 
 $sugar_value = $response[0].sgv
 
-if ($sugar_value -gt 175) {
-    # set the color yellow
-} else if ($sugar_value -lt 70) {
-    # set the color red
+if ($sugar_value -gt 175 -or $sugar_value -lt 100) {
+    SetElevatedCursors
+} elseif ($sugar_value -lt 70) {
+    SetLowCursors
 } else {
-    # set the color green
+    SetInRangeCursors
 }
