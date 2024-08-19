@@ -15,6 +15,9 @@ You can run this via AutoHotKey and PowerShell for right now, and is very Window
 
 A known issue is how the cursor is rendered when running the PowerShell script. It's currently quite blurry and there seems to be a need to activate something to kick in better rendering. AutoHotKey doesn't have this problem.
 
+I HIGHLY recommend using this with AutoHotKey since PowerShell has so many issues (from the blurry cursor to the inability to have a decent Cron job implementation).
+<https://www.autohotkey.com/>
+
 ## Technical Details
 
 Windows has certain APIs available to update the cursor. Mainly, `LoadCursorFromFile` and `SetSystemCursor` are leveraged.
@@ -22,6 +25,7 @@ Windows has certain APIs available to update the cursor. Mainly, `LoadCursorFrom
 <https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setsystemcursor>
 <https://learn.microsoft.com/en-us/windows/win32/menurc/about-cursors>
 <http://www.jasinskionline.com/windowsapi/ref/s/setsystemcursor.html>
+
 Each value below is a DWORD value, which identifies a cursor.
 
 - 32512 = NORMAL
@@ -92,7 +96,8 @@ No major changes to the logic, other than updating the script to v2 syntax.
 ### PowerShell
 
 The PowerShell script is written in a way that is to be leveraged by Task Scheduler.
-This doesn't really work well with Task Scheduler because of this issue: <https://github.com/PowerShell/PowerShell/issues/3028>
+This doesn't really work well with Task Scheduler because of this issue: <https://github.com/PowerShell/PowerShell/issues/3028>.
+
 The stupid PowerShell window keeps appearing and causing whatever window I'm on to lose focus.
 
 The DLL is also called in a little bit of an odd way...
@@ -100,6 +105,6 @@ The DLL is also called in a little bit of an odd way...
 <https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/add-type?view=powershell-5.1#example-4-call-native-windows-apis>
 
 The above reference shows how you can leverage the `Add-Type` utility to add a Microsoft .NET class to a PowerShell session.
-
 Since .NET can make the DLL call, we have this nested logic of a DLL call within a .NET string defined within PowerShell. Yikes.
-It's probably worth it to create an actual .NET solution for this instead of scripting it through PowerShell.
+
+It's probably worth it to create an actual .NET solution for this instead of scripting it through PowerShell. So much for a PoC for PowerShell.
