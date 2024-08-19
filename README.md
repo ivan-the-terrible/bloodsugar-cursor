@@ -2,7 +2,7 @@
 
 A cool way to update your cursor to reflect your blood sugar values.
 
-The main idea here is to poll against your Nightscout API every couple of minutes or so and update the color of your mouse cursor to help indicate your current level.
+The main idea here is to poll against your Nightscout API every 5 minutes and update the color of your mouse cursor to help indicate your current level.
 
 For right now, the colors are:
 
@@ -13,7 +13,7 @@ For right now, the colors are:
 Included are the cursor files that will be loaded based on this status.
 You can run this via AutoHotKey and PowerShell for right now, and is very Windows centric.
 
-A known issue is how the cursor is rendered. It's currently quite blurry and there seems to be a need to activate something to kick in better rendering.
+A known issue is how the cursor is rendered when running the PowerShell script. It's currently quite blurry and there seems to be a need to activate something to kick in better rendering. AutoHotKey doesn't have this problem.
 
 ## Technical Details
 
@@ -82,6 +82,13 @@ Back at the Control Panel/Cursors entries, the file path for Arrow is this strin
 
 Going to that directory, we can find these cursor files. If we change the color in Settings now, we can see these files get updated.
 
+### AutoHotKey
+
+This topic helped tremendously in doing this in AutoHotKey (v1):
+<https://www.autohotkey.com/boards/viewtopic.php?t=81652>
+
+No major changes to the logic, other than updating the script to v2 syntax.
+
 ### PowerShell
 
 The PowerShell script is written in a way that is to be leveraged by Task Scheduler.
@@ -95,5 +102,4 @@ The DLL is also called in a little bit of an odd way...
 The above reference shows how you can leverage the `Add-Type` utility to add a Microsoft .NET class to a PowerShell session.
 
 Since .NET can make the DLL call, we have this nested logic of a DLL call within a .NET string defined within PowerShell. Yikes.
-
 It's probably worth it to create an actual .NET solution for this instead of scripting it through PowerShell.
