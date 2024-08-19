@@ -13,7 +13,7 @@ For right now, the colors are:
 Included are the cursor files that will be loaded based on this status.
 You can run this via AutoHotKey and PowerShell for right now, and is very Windows centric.
 
-Perhaps I could venture out and write something in Go that's cross platform.
+A known issue is how the cursor is rendered. It's currently quite blurry and there seems to be a need to activate something to kick in better rendering.
 
 ## Technical Details
 
@@ -85,11 +85,15 @@ Going to that directory, we can find these cursor files. If we change the color 
 ### PowerShell
 
 The PowerShell script is written in a way that is to be leveraged by Task Scheduler.
+This doesn't really work well with Task Scheduler because of this issue: <https://github.com/PowerShell/PowerShell/issues/3028>
+The stupid PowerShell window keeps appearing and causing whatever window I'm on to lose focus.
 
-The DLL is called in a little bit of an odd way...
+The DLL is also called in a little bit of an odd way...
 
 <https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/add-type?view=powershell-5.1#example-4-call-native-windows-apis>
 
 The above reference shows how you can leverage the `Add-Type` utility to add a Microsoft .NET class to a PowerShell session.
 
 Since .NET can make the DLL call, we have this nested logic of a DLL call within a .NET string defined within PowerShell. Yikes.
+
+It's probably worth it to create an actual .NET solution for this instead of scripting it through PowerShell.
