@@ -11,11 +11,11 @@ For right now, the colors are:
 - red = low
 
 Included are the cursor files that will be loaded based on this status.
-You can run this via AutoHotKey and PowerShell for right now, and is very Windows centric.
+You can run this via AutoHotkey and PowerShell for right now, and is very Windows centric.
 
-A known issue is how the cursor is rendered when running the PowerShell script. It's currently quite blurry and there seems to be a need to activate something to kick in better rendering. AutoHotKey doesn't have this problem.
+A known issue is how the cursor is rendered when running the PowerShell script. It's currently quite blurry and there seems to be a need to activate something to kick in better rendering. AutoHotkey doesn't have this problem.
 
-I HIGHLY recommend using this with AutoHotKey since PowerShell has so many issues (from the blurry cursor to the inability to have a decent Cron job implementation).
+I HIGHLY recommend using this with AutoHotkey since PowerShell has so many issues (from the blurry cursor to the inability to have a decent Cron job implementation).
 <https://www.autohotkey.com/>
 
 ## Technical Details
@@ -86,9 +86,9 @@ Back at the Control Panel/Cursors entries, the file path for Arrow is this strin
 
 Going to that directory, we can find these cursor files. If we change the color in Settings now, we can see these files get updated.
 
-### AutoHotKey
+### AutoHotkey
 
-This topic helped tremendously in doing this in AutoHotKey (v1):
+This topic helped tremendously in doing this in AutoHotkey (v1):
 <https://www.autohotkey.com/boards/viewtopic.php?t=81652>
 
 No major changes to the logic, other than updating the script to v2 syntax.
