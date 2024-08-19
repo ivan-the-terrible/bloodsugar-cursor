@@ -1,29 +1,11 @@
 ; orignal topic converted to v2: https://www.autohotkey.com/boards/viewtopic.php?t=81652
-F3::SetSystemCursor()
-F4::RestoreCursors()
+Persistent()
+OnExit(RestoreCursors)
+SetTimer(SetSystemCursor, 300000) ; every 5 minutes
+
+SetSystemCursor() ; initial call to run immediately
 
 SetSystemCursor() {
- ; https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setsystemcursor
- ; https://learn.microsoft.com/en-us/windows/win32/menurc/about-cursors
- ; http://www.jasinskionline.com/windowsapi/ref/s/setsystemcursor.html
- ; Each value below is a DWORD value, which identifies a cursor.
- ; 32512 = NORMAL
- ; 32513 = IBEAM
- ; 32514 = WAIT
- ; 32515 = CROSS
- ; 32516 = UP
- ; 32631 = PEN
- ; 32642 = SIZENWSE
- ; 32643 = SIZENESW
- ; 32644 = SIZEWE
- ; 32645 = SIZENS
- ; 32646 = SIZEALL
- ; 32648 = NO
- ; 32649 = HAND
- ; 32650 = APPSTARTING
- ; 32651 = HELP
- ; 32671 = PIN
- ; 32672 = PERSON
  cursor_dict := {
    32512: "arrow_eoa.cur",
    32513: "ibeam_eoa.cur",
@@ -48,12 +30,34 @@ SetSystemCursor() {
  elevated_cursors := ".\elevated_cursors"
  low_cursors := ".\low_cursors"
 
- For key, value in cursor_dict {
-   DllCall("SetSystemCursor", "Uint", DllCall("LoadCursorFromFile", "Str", value), "Int", key)
+  ; Send GET request
+  HTTP := ComObject("WinHttp.WinHttpRequest.5.1")
+  HTTP.Open("GET", "http://192.168.0.127:1337/api/v1/entries", true)
+  HTTP.Send()
+  HTTP.WaitForResponse()
+  response := HTTP.ResponseText
+  ; Get the blood sugar value
+  response_lines := StrSplit(response, "`n")
+  first_line := response_lines[1]
+  blood_sugar := StrSplit(first_line, A_Tab)[3] ; 3rd column has the blood sugar value
+
+  ; Set the cursor based on the blood sugar value
+  if (blood_sugar < 90) {
+    current_cursor_dir := low_cursors
+  } else if (blood_sugar > 170) {
+    current_cursor_dir := elevated_cursors
+  } else {
+    current_cursor_dir := inrange_cursors
+  }
+
+ For key, value in cursor_dict.OwnProps() {
+   current_cursor := current_cursor_dir . "\" . value
+   loaded_cursor := DllCall("LoadCursorFromFile", "Str", current_cursor)
+   DllCall("SetSystemCursor", "Uint", loaded_cursor, "Int", key)
  }
 }
 
-RestoreCursors() {
+RestoreCursors(*) {
  SPI_SETCURSORS := 0x57
  DllCall("SystemParametersInfo", "UInt", SPI_SETCURSORS, "UInt", 0, "UInt", 0, "UInt", 0)
 }
