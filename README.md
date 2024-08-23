@@ -15,7 +15,7 @@ You can run this via AutoHotkey and PowerShell for right now, and is very Window
 
 A known issue is how the cursor is rendered when running the PowerShell script. It's currently quite blurry and there seems to be a need to activate something to kick in better rendering. AutoHotkey doesn't have this problem.
 
-I HIGHLY recommend using this with AutoHotkey since PowerShell has so many issues (from the blurry cursor to the inability to have a decent Cron job implementation).
+I HIGHLY recommend using this with AutoHotkey since PowerShell has so many issues (from the blurry cursor to the inability to have a decent Cron job implementation). The PowerShell version exists more as a proof of concept that it can be done there, but clearly isn't the best solution.
 <https://www.autohotkey.com/>
 
 ## Technical Details
