@@ -26,9 +26,9 @@ SetSystemCursor() {
    32672: "person_eoa.cur"
  }
 
- inrange_cursors := ".\inrange_cursors"
- elevated_cursors := ".\elevated_cursors"
- low_cursors := ".\low_cursors"
+ inrange_cursors := "..\inrange_cursors"
+ elevated_cursors := "..\elevated_cursors"
+ low_cursors := "..\low_cursors"
 
   ; Send GET request
   HTTP := ComObject("WinHttp.WinHttpRequest.5.1")
