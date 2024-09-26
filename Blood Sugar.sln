@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blood Sugar Worker Service", "Blood Sugar Worker Service\Blood Sugar Worker Service.csproj", "{23FD0526-20EB-4048-9763-45E39B4B52E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blood Sugar Worker Service", "Blood Sugar Worker Service\Blood Sugar Worker Service.csproj", "{23FD0526-20EB-4048-9763-45E39B4B52E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blood Sugar UI", "Blood Sugar UI\Blood Sugar UI.csproj", "{AAD1CE8A-E0DF-467E-9596-208D65437CE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{23FD0526-20EB-4048-9763-45E39B4B52E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23FD0526-20EB-4048-9763-45E39B4B52E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23FD0526-20EB-4048-9763-45E39B4B52E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAD1CE8A-E0DF-467E-9596-208D65437CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAD1CE8A-E0DF-467E-9596-208D65437CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAD1CE8A-E0DF-467E-9596-208D65437CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD1CE8A-E0DF-467E-9596-208D65437CE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
